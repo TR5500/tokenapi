@@ -164,6 +164,36 @@ def fetchADAbtrx():
 
     return str(result)
 
+@app.route('/btrx_l')
+def fetchADTbtrx():
+    url ='https://bittrex.com/api/v1.1/public/getticker'
+    Pair = ['ETH-ADT']
+    load = {'market': Pair}
+    response = requests.get(url, params=load)
+    result = response.json()['result']['Ask']
+
+    return str(result)
+
+@app.route('/btrx_m')
+def fetchZRXbtrx():
+    url ='https://bittrex.com/api/v1.1/public/getticker'
+    Pair = ['ETH-ZRX']
+    load = {'market': Pair}
+    response = requests.get(url, params=load)
+    result = response.json()['result']['Ask']
+
+    return str(result)
+
+@app.route('/btrx_n')
+def fetchDNTbtrx():
+    url ='https://bittrex.com/api/v1.1/public/getticker'
+    Pair = ['BTC-DNT']
+    load = {'market': Pair}
+    response = requests.get(url, params=load)
+    result = response.json()['result']['Ask']
+
+    return str(result)
+
 
 
 
@@ -177,6 +207,35 @@ def fetchcryptocompare():
     results = response.json()
 
     return str(results['USD'])
+
+@app.route('/btcprice')
+def fetchblockchaininfo():
+    url = 'https://blockchain.info/ticker'
+    Pair = ['BTC-USD']
+    response = requests.get(url, params=Pair)
+    results = response.json()['last']
+
+    return str(results)
+
+@app.route('/salt_price')
+def fetchSALTbtrx():
+    url = 'https://bittrex.com/api/v1.1/public/getticker'
+    Pair = ['ETH-SALT']
+    load = {'market': Pair}
+    response = requests.get(url, params = load)
+    results = response.json()['result']['Ask']
+
+    return str(results)
+
+@app.route('/gno_price')
+def fetchGNOTbtrx():
+    url = 'https://bittrex.com/api/v1.1/public/getticker'
+    Pair = ['ETH-GNO']
+    load = {'market': Pair}
+    response = requests.get(url, params = load)
+    results = response.json()['result']['Ask']
+
+    return str(results)
 
 
 @app.route('/btrx_all')
@@ -193,7 +252,10 @@ def fetchAllBittrex():
     eth_USD = fetchcryptocompare()
     btc_DCR = fetchDCRbtrx()
     eth_ADA = fetchADAbtrx()
-
+    eth_ADT = fetchADTbtrx()
+    eth_ZRX = fetchZRXbtrx()
+    eth_SALT = fetchSALTbtrx()
+    #eth_GNO = fetchGNObtrx()
 
 
 
@@ -203,16 +265,19 @@ def fetchAllBittrex():
     omg_USD = float(eth_OMG) * float(eth_USD)
     xlm_USD = float(eth_XLM) * float(eth_USD)
     bnt_USD = float(eth_BNT) * float(eth_USD)
-    ark_USD = float(btc_ARK) * float(10840)
+    ark_USD = float(btc_ARK) * float(9200)
     zec_USD = float(eth_ZEC) * float(eth_USD)
     xmr_USD = float(eth_XMR) * float(eth_USD)
-    dcr_USD = float(btc_DCR) * float(10840)
+    dcr_USD = float(btc_DCR) * float(9200)
     ada_USD = float(eth_ADA) * float(eth_USD)
-
+    adt_USD = float(eth_ADT) * float(eth_USD)
+    zrx_USD = float(eth_ZRX) * float(eth_USD)
+    salt_USD = float(eth_SALT) * float(eth_USD)
+    #gno_USD = float(eth_GNO) * float(eth_USD)
 
 
     #return str(rep_USD)
-    return ''.join(['--REP_USD: '+ str(rep_USD), '--BAT_USD '+ str(bat_USD), '--XRP_USD '+ str(xrp_USD), '--OMG_USD '+ str(omg_USD), '__XLM_USD '+ str(xlm_USD), '--BNT_USD-- '+ str(bnt_USD), '--ARK_USD '+ str(ark_USD), '--ZEC_USD '+ str(zec_USD), '--ETH_USD '+ str(eth_USD), '--XMR_USD '+ str(xmr_USD), '--DCR_USD---'+ str(dcr_USD), '--ADA_USD--', str(ada_USD)])
+    return ''.join(['--REP_USD: '+ str(rep_USD), '--BAT_USD '+ str(bat_USD), '--XRP_USD '+ str(xrp_USD), '--OMG_USD '+ str(omg_USD), '__XLM_USD '+ str(xlm_USD), '--BNT_USD-- '+ str(bnt_USD), '--ARK_USD '+ str(ark_USD), '--ZEC_USD '+ str(zec_USD), '--ETH_USD '+ str(eth_USD), '--XMR_USD '+ str(xmr_USD), '--DCR_USD---'+ str(dcr_USD), '--ADA_USD--', str(ada_USD), '--ADT_USD--', str(adt_USD), '--ZRX_USD--', str(zrx_USD), '--SALT_USD--', str(salt_USD)])
 
 
 
@@ -283,6 +348,36 @@ def fetchBCHpoloniex():
     return str(result)
 
 
+@app.route('/polnx_u')
+def fetchLSKpoloniex():
+    url = 'https://poloniex.com/public?command=returnTicker'
+    moneyPair = ['ETH_LSK']
+    load = {'ticker': moneyPair}
+    response = requests.get(url, params=load)
+    result = response.json()['ETH_LSK']['last']
+
+    return str(result)
+
+@app.route('/polnx_v')
+def fetchGASpoloniex():
+    url = 'https://poloniex.com/public?command=returnTicker'
+    moneyPair = ['ETH_GAS']
+    load = {'ticker': moneyPair}
+    response = requests.get(url, params=load)
+    result = response.json()['ETH_GAS']['last']
+
+    return str(result)
+
+@app.route('/polnx_w')
+def fetchGNTpoloniex():
+    url = 'https://poloniex.com/public?command=returnTicker'
+    moneyPair = ['ETH_GNT']
+    load = {'ticker': moneyPair}
+    response = requests.get(url, params=load)
+    result = response.json()['ETH_GNT']['last']
+
+    return str(result)
+
 
 
 
@@ -295,14 +390,20 @@ def fetchAllPoloniex():
     eth_ZRX = fetchZRXpoloniex()
     eth_USD = fetchcryptocompare()
     eth_BCH = fetchBCHpoloniex()
+    eth_LSK = fetchLSKpoloniex()
+    eth_GAS = fetchGASpoloniex()
+    eth_GNT = fetchGNTpoloniex()
 
     rep_USD = float(eth_REP) * float(eth_USD)
     omg_USD = float(eth_OMG) * float(eth_USD)
     gno_USD = float(eth_GNO) * float(eth_USD)
     zrx_USD = float(eth_ZRX) * float(eth_USD)
     bch_USD = float(eth_BCH) * float(eth_USD)
+    lsk_USD = float(eth_LSK) * float(eth_USD)
+    gas_USD = float(eth_GAS) * float(eth_USD)
+    gnt_USD = float(eth_GNT) * float(eth_USD)
     #omg_USD = float(eth_OMG) * float(eth_USD)
-    return ''.join(['--rep_USD ' + str(rep_USD), '--omg_USD ' + str(omg_USD), '--eth_GNO ' + str(gno_USD), '--eth_ZRX ' + str(zrx_USD), '--eth_BCH ' + str(bch_USD)])
+    return ''.join(['--REP_USD ' + str(rep_USD), '--OMG_USD ' + str(omg_USD), '--GNO_USD-- ' + str(gno_USD), '--eth_ZRX ' + str(zrx_USD), '--eth_BCH ' + str(bch_USD), '--LSK_USD--' + str(lsk_USD), '--GAS_USD--' + str(gas_USD), '--GNT_USD--' + str(gnt_USD)])
 
 
 
